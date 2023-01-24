@@ -3,7 +3,7 @@ module.exports = mongoose =>{
         {
             bookingId : String,
             userId : String,
-            noOfTickets: int,
+            noOfTickets: Number,
             ticketId : Array
         }
     )

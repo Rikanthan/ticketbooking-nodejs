@@ -1,7 +1,7 @@
 module.exports = mongoose => {
     let schema = mongoose.Schema({
-        ticketNo : int,
-        price : double,
+        ticketNo : String,
+        price : Number,
         eventName : String,
         duration : String,
         venue : String,

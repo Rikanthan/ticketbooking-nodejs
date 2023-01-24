@@ -1,6 +1,9 @@
 const express = require("express");
 const cors = require("cors");
-
+const fs = require("fs");
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./Swagger.json');
+const customCss = fs.readFileSync((process.cwd()+"/swagger.css"), 'utf8');
 const app = express();
 
 const corsOptions = {
@@ -13,9 +16,13 @@ app.use(express.json())
 
 app.use(express.urlencoded({extended: true}))
 
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, {customCss}));
+
 app.get("/",(req,res) =>{
     res.json({message : "server started successfully!"})
 })
+
+require("./app/routes/user.routes")(app);
 
 const PORT = process.env.PORT || 8080;
 
@@ -24,9 +31,6 @@ app.listen(PORT,()=>{
 })
 
 const db = require("./app/models");
-
-
-
 
 db.mongoose.connect(db.url,{
     useNewUrlParser: true,
