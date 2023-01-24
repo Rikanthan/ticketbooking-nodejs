@@ -4,6 +4,8 @@ module.exports = app => {
     let router = require("express").Router();
 
     router.post("/",users.create);
+
+    router.get("/",users.findOne);
     
     app.use("/api/users", router);
 }

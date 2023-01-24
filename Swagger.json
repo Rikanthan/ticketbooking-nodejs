@@ -13,7 +13,7 @@
         }
     },
     "schemes": ["http"],
-    "host": "localhost:3080",
+    "host": "localhost:8080",
     "basePath": "/api",
     "paths" : {
         "/todos" : {
@@ -43,8 +43,8 @@
         },
         "/todo" : {
             "post" : {
-                "summary" : "Save the task",
-                "description": "Save the task",
+                "summary" : "Save the user",
+                "description": "Save the user",
                 "produces": ["application/json"],
                 "consumes": ["application/json"],
                 "parameters": [
