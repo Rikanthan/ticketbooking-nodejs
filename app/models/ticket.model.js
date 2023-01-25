@@ -1,6 +1,6 @@
 module.exports = mongoose => {
     let schema = mongoose.Schema({
-        ticketNo : String,
+        ticketNo :{type : String , unique : true},
         price : Number,
         eventName : String,
         duration : String,
