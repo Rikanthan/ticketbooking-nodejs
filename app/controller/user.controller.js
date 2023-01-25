@@ -36,11 +36,11 @@ exports.create = (req, res) => {
 exports.findOne = (req, res) => {
     const username = req.query.username;
     const password = req.query.password;
-    let condition = username ? { username: { $regex: new RegExp(username), $options: "i" } } : {};
+    let condition = username ? { username: username } : {};
     User.find(condition)
       .then(data => {
         if (!data)
-          res.status(404).send({ message: "Not found Tutorial with username " + username });
+          res.status(404).send({ message: "No user with username " + username });
         else {         
             bcrypt.compare(password, data[0].password, function(err, response) {
                 if(response){
