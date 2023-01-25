@@ -5,7 +5,8 @@ module.exports = mongoose => {
         eventName : String,
         duration : String,
         venue : String,
-        time : Date
+        time : Date,
+        isBooked : {type : Boolean, default: false}
     });
 
     schema.method("toJSON", function(){

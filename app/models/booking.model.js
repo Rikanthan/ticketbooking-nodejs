@@ -1,10 +1,13 @@
 module.exports = mongoose =>{
     let schema = mongoose.Schema(
         {
-            bookingId : String,
+            bookingId : {type: String, unique: true},
             userId : String,
             noOfTickets: Number,
             ticketId : Array
+        },
+        {
+            timetamps : true
         }
     )
 
