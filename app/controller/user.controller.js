@@ -3,10 +3,24 @@ const bcrypt = require("bcrypt")
 const User = db.users;
 
 exports.create = (req, res) => {
+    const validEmail = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
+    const validPassword=  /^[A-Za-z]\w{7,14}$/;
+    let isValid = true;
     if (!req.body.username) {
         res.status(400).send({ message: "Username can not be empty" })
+        isValid = false;
     }
-    hashPassword(req.body.password)
+    if(!validEmail.test(req.body.userEmail)){
+        res.status(400).send({message : "User email is not valid"})
+        isValid = false;
+    }
+    if(!validPassword.test(req.body.password)){
+        res.status(400).send({message : "User password is not valid"})
+        isValid = false;
+    }
+    if(isValid){
+        hashPassword(req.body.password)
+    }
     function hashPassword(plaintextPassword) {
         bcrypt.hash(plaintextPassword, 10)
             .then(hash => {
@@ -54,6 +68,6 @@ exports.findOne = (req, res) => {
       .catch(err => {
         res
           .status(500)
-          .send({ message: "Error retrieving Tutorial with username=" + username });
+          .send({ message: "Error retrieving user with username=" + username });
       });
   };
