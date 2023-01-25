@@ -1,9 +1,8 @@
 module.exports = mongoose =>{
     let schema = mongoose.Schema({
-        userId : String,
-        username : String,
-        userEmail : String,
-        password : String
+        username : {type : String,unique: true},
+        userEmail : {type : String,unique: true},
+        password : {type: String}
     });
 
     schema.method("toJSON", function(){

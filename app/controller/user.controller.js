@@ -25,7 +25,6 @@ exports.create = (req, res) => {
         bcrypt.hash(plaintextPassword, 10)
             .then(hash => {
                 const user = new User({
-                    userId: req.body.userId,
                     username: req.body.username,
                     userEmail: req.body.userEmail,
                     password: hash
@@ -60,7 +59,7 @@ exports.findOne = (req, res) => {
                 if(response){
                     res.send(data)
                 }else{
-                    res.status(404).send({message: "password doesn't match "+ data.password+" "+ data.username})
+                    res.status(404).send({message: "password doesn't match "})
                 }
             });
         }
