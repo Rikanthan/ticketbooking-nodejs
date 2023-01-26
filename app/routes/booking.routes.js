@@ -3,7 +3,7 @@ module.exports = app =>{
 
     let router = require("express").Router()
     
-    router.post("/",booking.create);
+    router.post("/",booking.bookTicket);
 
     app.use("/api/booking",router)
 }
