@@ -37,14 +37,15 @@ exports.bookTicket = (req, res) => {
 
         return Ticket.updateMany(
             { ticketNo: { $in: ticketNo } },
-            { 
-                $set: { isBooked: true },
-                $push: { 
-                    userId : req.body.userId,
-                    bookedTime : new Date()
-                } 
+            {
+                $set: {
+                    isBooked: true,
+                    userId: req.body.userId,
+                    bookedTime: new Date()
+                },
             },
-             callback
+            { upsert: true },
+            callback
         )
 
         function callback() {
