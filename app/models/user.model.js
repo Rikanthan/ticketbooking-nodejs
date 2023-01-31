@@ -1,5 +1,6 @@
 module.exports = mongoose =>{
     let schema = mongoose.Schema({
+        userId: {type : String, unique: true},
         username : {type : String,unique: true},
         userEmail : {type : String,unique: true},
         password : {type: String}

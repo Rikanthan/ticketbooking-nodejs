@@ -1,5 +1,6 @@
 const db = require("../models");
 const bcrypt = require("bcrypt")
+const crypto = require('crypto');
 const User = db.users;
 
 exports.create = (req, res) => {
@@ -25,6 +26,7 @@ exports.create = (req, res) => {
         bcrypt.hash(plaintextPassword, 10)
             .then(hash => {
                 const user = new User({
+                    userId : crypto.randomUUID(),
                     username: req.body.username,
                     userEmail: req.body.userEmail,
                     password: hash

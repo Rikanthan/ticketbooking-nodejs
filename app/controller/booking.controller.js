@@ -2,6 +2,7 @@ const db = require("../models")
 const crypto = require('crypto');
 const Booking = db.bookings
 const Ticket = db.tickets
+const User = db.users
 
 exports.create = (req, res) => {
     const booking = new Booking({
@@ -19,15 +20,26 @@ exports.create = (req, res) => {
         })
 }
 
+exports.bookTicket = async (req, res) => {
+    let isValidUser = false;
+    try {
+        const doc = await User.findOne({ userId: req.body.userId })
+        isValidUser = doc.userId === req.body.userId ? true : false
+    } catch (err) {
+        res.status(500).send({ message: "user not found " })
+    }
+    if (isValidUser) {
+        try {
+            let condition = { isBooked: false };
+            await Ticket
+                .find(condition)
+                .sort({ ticketNo: 1 })
+                .limit(req.body.noOfTickets)
+                .exec(updateTickets)
+        }catch(err){
 
-exports.bookTicket = (req, res) => {
-    let condition = { isBooked: false };
-    Ticket
-        .find(condition)
-        .sort({ ticketNo: 1 })
-        .limit(req.body.noOfTickets)
-        .exec(updateTickets);
-
+        }
+    }
     function updateTickets(err, tickets) {
         if (err) {
             return handleError(res, err);
