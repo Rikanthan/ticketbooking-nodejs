@@ -28,6 +28,8 @@ require("./app/routes/ticket.routes")(app);
 
 require("./app/routes/booking.routes")(app);
 
+require("./app/routes/event.routes")(app);
+
 const PORT = process.env.PORT || 8080;
 
 app.listen(PORT,()=>{

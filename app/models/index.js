@@ -11,5 +11,6 @@ db.url = dbConfig.url;
 db.users = require("./user.model")(mongoose);
 db.bookings = require("./booking.model")(mongoose);
 db.tickets = require("./ticket.model")(mongoose);
+db.events = require("./event.model")(mongoose);
 
 module.exports = db;

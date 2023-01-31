@@ -4,7 +4,7 @@ const User = db.users;
 
 exports.create = (req, res) => {
     const validEmail = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
-    const validPassword=  /^[A-Za-z]\w{7,14}$/;
+    const validPassword=  /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/;
     let isValid = true;
     if (!req.body.username) {
         res.status(400).send({ message: "Username can not be empty" })

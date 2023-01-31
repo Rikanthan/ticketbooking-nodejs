@@ -19,6 +19,7 @@ exports.create = (req, res) => {
         })
 }
 
+
 exports.bookTicket = (req, res) => {
     let condition = { isBooked: false };
     Ticket
@@ -34,23 +35,21 @@ exports.bookTicket = (req, res) => {
         let ticketNo = tickets.map(function (item) {
             return item.ticketNo;
         })
-
-        return Ticket.updateMany(
-            { ticketNo: { $in: ticketNo } },
-            {
-                $set: {
-                    isBooked: true,
-                    userId: req.body.userId,
-                    bookedTime: new Date()
-                },
-            },
-            { upsert: true },
-            callback
-        )
-
+        const update = {
+            $set: {
+                isBooked: true,
+                userId: req.body.userId
+            }
+        }
+        const options = { upsert: true, timestamps: true }
         function callback() {
             return res.status(200).send({ message: "Ticket booked successfully!" })
         }
+        return Ticket.updateMany(
+            { ticketNo: { $in: ticketNo } },
+            update,
+            options,
+            callback
+        );
     }
-
 }

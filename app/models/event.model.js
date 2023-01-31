@@ -1,9 +1,10 @@
 module.exports = mongoose => {
     let schema = mongoose.Schema({
-        ticketNo :{type : String , unique : true},
-        eventId: String,
-        userId : {type: String, default: ""},
-        isBooked : {type : Boolean, default: false}
+        eventId :{type : String , unique : true},
+        eventName : String,
+        duration : String,
+        venue : String,
+        dateTime : Date,
        
     },{
         upsert : true,
@@ -16,8 +17,8 @@ module.exports = mongoose => {
         return object;
     })
 
-    const Ticket = mongoose.model(
-        "ticket", schema
+    const Event = mongoose.model(
+        "event", schema
     );
-    return Ticket;
+    return Event;
 }
