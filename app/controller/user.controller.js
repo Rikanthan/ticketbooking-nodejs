@@ -2,7 +2,9 @@ const db = require("../models");
 const bcrypt = require("bcrypt")
 const crypto = require('crypto');
 const User = db.users;
-
+const jwt = require('jsonwebtoken');
+const dotenv = require('dotenv');
+dotenv.config();
 exports.create = (req, res) => {
     const validEmail = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
     const validPassword=  /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/;
@@ -31,7 +33,8 @@ exports.create = (req, res) => {
                     userEmail: req.body.userEmail,
                     password: hash
                 });
-
+                  const token = jwt.sign(user, "dkjfsdkjksjkjskjfjdskjfkssf");
+                  console.log(token)
                 user
                     .save(user)
                     .then(data => {
@@ -47,6 +50,15 @@ exports.create = (req, res) => {
             })
     }
 }
+
+exports.createToken = (req,res) =>{
+    const data = {userid : 1}
+    const token = jwt.sign({data},process.env.JWT_SECRET_KEY);
+    res.json({
+        token : token
+    })
+}
+
 
 exports.findOne = (req, res) => {
     const username = req.query.username;

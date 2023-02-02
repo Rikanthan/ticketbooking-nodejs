@@ -1,4 +1,5 @@
 const express = require("express");
+require("dotenv").config();
 const cors = require("cors");
 const fs = require("fs");
 const swaggerUi = require('swagger-ui-express');
@@ -42,6 +43,7 @@ db.mongoose.connect(db.url,{
 })
 .then(()=>{
     console.log("connected to database!")
+    console.log(process.env.JWT_SECRET_KEY)
 }).catch(err =>{
     console.log("Cannot connect to the database!", err);
     process.exit();

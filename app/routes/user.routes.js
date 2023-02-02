@@ -6,6 +6,8 @@ module.exports = app => {
     router.post("/register",users.create);
 
     router.get("/login",users.findOne);
+
+    router.get("/createToken",users.createToken)
     
     app.use("/api/users", router);
 }
